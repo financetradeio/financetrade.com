@@ -1,0 +1,175 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+        <script src="https://hosted.paysafe.com/checkout/v2/paysafe.checkout.min.js"></script>
+    </head>
+    <body style = "width :'100%'">
+        <button onclick="checkout()"> Withdraw $25 </button>
+    </body>      
+<script>
+     
+/***************************************************************Launch Call*********************************************************************/          
+ 
+        function checkout() {
+            API_KEY = ;                                                                                          // Base 64 encoded Basic Auth
+            options = {
+                    "currency": "USD",
+                    "payout": true,
+                    "amount": 2500,
+                    "singleUseCustomerToken": "singleUseCustomerToken",
+                    "locale": "en_US",
+                    "headerText": "Make Secure Withdrawals with Checkout",
+                    "footerText": "For additional info please contact us at support@paysafe.com",
+                    "amountoptions": [
+                        500,
+                        10500,
+                        60000
+                    ],      
+                    "displayPaymentMethods": [
+                        "card",
+                        "skrill",
+                        "neteller",
+                        "paysafecard",
+                        "sightline",
+                        "vippreferred",
+                        "paypal",
+                        "venmo",
+                        "mazooma",
+                        "interchecks", 
+                        "ach",
+                        "eft",
+                        "interac",
+                        "interac_etransfer",
+                        "
+                        ],      
+                        "customer": {
+                        "firstName": "Sandi",
+                        "lastName": "Smith",
+                        "email": "sandi.smith@paysafe.com",
+                        "phone": "84632876432",
+                        "dateOfBirth": {
+                            "day": 23,
+                            "month": 12,
+                            "year": 1990
+                            }
+                        },
+                        "billingAddress": {
+                            "nickName": "John Dee",
+                            "street": "Queen Street West",
+                            "street2": "Queen Street",
+                            "city": "Cupertino",
+                            "zip": "14236",
+                            "country": "US",
+                            "state": "CA"
+                        },
+                        "environment": {
+                            "url": "url",
+                            "assetsUrl": "url"
+                        },
+                        "threeDs": {
+                            "merchantUrl": "https://demostore.com/merchantUrl",
+                            "deviceChannel": "BROWSER",
+                            "messageCategory": "PAYMENT",
+                            "transactionIntent": "GOODS_OR_SERVICE_PURCHASE",
+                            "authenticationPurpose": "PAYMENT_TRANSACTION"
+                        },
+                        "merchantRefNum": "UUID",
+                        "merchantDescriptor": {
+                            "dynamicDescriptor": "This is description test for the merchant",
+                            "phone": "5555345456"
+                        },
+                        "shippingDetails": {
+                            "recipientName": "John Doe",
+                            "street": "20735 Stevens Creek Blvd",
+                            "street2": "Montessori",
+                            "city": "Cupertino",
+                            "zip": "95014",
+                            "country": "US",
+                            "state": "CA"
+                        },
+                        "canEditAmount": true,      "paymentMethodDetails": {
+                         "card": {
+                            "accountId": "CARD_ACCOUNT_ID"                                                  //if more than one Card accounts configured
+                        },
+                        "skrill": {
+                            "consumerId": "SKRILL_CONSUMER_ID",
+                            "emailSubject": "Email Subject to be sent to Skrill User",
+                            "emailMessage": "Email Body to be sent to Skrill User"
+                        },
+                        "neteller": {
+                            "consumerId": "NETELLER_CONSUMER_ID"
+                        },
+                        "paysafecard": {
+                            "consumerId": "PAYSAFECARD_CONSUMER_ID"
+                        },
+                        "paysafecash": {
+                            "consumerId": "PAYSAFECASH_CONSUMER_ID"
+                        },
+                        "sightline": {
+                            "consumerId": "SIGHTLINE_CONSUMER_ID",
+                            "ssn": "USER_SSN_NUMBER"
+                        },
+                        "vippreferred": {
+                            "consumerId": "VIPPREFERRED_CONSUMER_ID"
+                        },
+                        "paypal": {
+                            "consumerId": "PAYPAL_CONSUMERID",
+                            "recipientType": "PAYPAL_ID"
+                        },
+                        "venmo": {
+                            "consumerId": "VENMO_CONSUMERID"
+                        },
+                        "mazooma": {
+                            "consumerId": "MAZOOMA_CONSUMER_ID"
+                        },
+                        "ach" : {
+                             "accountId" : "ACH_ACCOUNT_ID"                                        //  if more than one EFT accounts configured 
+                        }, 
+                        "eft" : {
+                            "accountId":"EFT_ACCOUNT_ID"                                            //  if more than one ACH accounts configured 
+                        },
+                        "interac": {
+                            "merchantId": "INTERAC_MERCHANT_ID",
+                            "storeId": "INTERAC_STORE_ID",
+                            "apiKey": "INTERAC_API_KEY"
+                        },
+                        "interacEtransfer": {
+                            "consumerId": "EMAIL_ID_OF_RECIPIENT",
+                            "type": "EMAIL",
+                            "userCookie": "COOKIES",
+                            "question": "What is the name of your favorite pet?",
+                            "answer": "Pesho"
+                        }  
+                };
+                 
+                 
+    /***************************************************************Trigger Checkout Call*********************************************************************/        
+             
+             
+            paysafe.checkout.setup(API_KEY, options,
+             
+            function(instance, error, result) {
+                if (result) {
+                    makeWithdrawalWithPaymentHandleToken(instance, result);                         // Complete AJAX Withdrawal call with Payment Handle Token
+                    instance.showSuccessScreen();                                                   // Show Success Screen
+                } else {           
+                            console.error(error);
+                            instance.showFailureScreen();                                           // Show Failure Screen
+                            return;
+                }
+            }, function(stage, expired) {
+                switch(stage) {
+                    case "BeforePayment": // Handle the scenario
+                    case "DuringPayment": // Handle the scenario
+                    case "AfterPayment": // Handle the scenario
+                    default: // Handle the scenario
+                }
+                 
+            });
+ 
+             
+ 
+        }
+    </script>
+</html>
+                                
